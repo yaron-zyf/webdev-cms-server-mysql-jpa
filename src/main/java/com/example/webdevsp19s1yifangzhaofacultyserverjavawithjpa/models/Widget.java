@@ -1,9 +1,23 @@
-package models;
+package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity(name = "Widgets")
 public class Widget {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
+	@ManyToOne
+	@JsonIgnore
+	private Topic topic;
 	private String headingText;
 	private int size;
 	private String paragraphText;

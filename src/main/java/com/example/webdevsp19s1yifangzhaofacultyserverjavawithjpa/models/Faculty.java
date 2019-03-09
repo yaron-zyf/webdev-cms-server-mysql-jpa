@@ -1,8 +1,12 @@
-package models;
+package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity(name = "Faculties")
+@DiscriminatorValue("Faculty")
 public class Faculty extends User {
 	
 	private String department;

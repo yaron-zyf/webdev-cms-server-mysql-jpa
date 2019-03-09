@@ -1,9 +1,26 @@
-package models;
+package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
+@Entity(name = "Users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+	name = "role",
+	discriminatorType = DiscriminatorType.STRING)
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String userName;
 	private String password;
@@ -11,7 +28,9 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phone;
+	@Column(name = "role", insertable = false, updatable = false)
 	private String role;
+	@OneToMany(mappedBy = "user")
 	private List<Course> courses;
 	
 	public User() {
