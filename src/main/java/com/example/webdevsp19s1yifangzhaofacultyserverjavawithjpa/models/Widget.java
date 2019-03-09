@@ -27,8 +27,6 @@ public class Widget {
 	@ManyToOne
 	@JsonIgnore
 	private Topic topic;
-//	private String title;
-//	private String href;
 
 	public Widget() {
 	}
