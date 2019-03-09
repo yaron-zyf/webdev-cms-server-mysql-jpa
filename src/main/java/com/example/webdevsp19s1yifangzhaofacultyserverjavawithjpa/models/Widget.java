@@ -27,10 +27,6 @@ public class Widget {
 	@ManyToOne
 	@JsonIgnore
 	private Topic topic;
-//	private String headingText;
-//	private int size;
-//	private String paragraphText;
-//	private String style;
 //	private String items;
 //	private String src;
 //	private String title;
