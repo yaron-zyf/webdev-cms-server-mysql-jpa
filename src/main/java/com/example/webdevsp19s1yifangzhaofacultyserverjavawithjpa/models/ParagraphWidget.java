@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("PARAGRAPH")
 public class ParagraphWidget extends Widget {
 	
-	private String paragraphStyle;
 	private String paragraphText;
 	
 	public ParagraphWidget() {
@@ -15,14 +14,6 @@ public class ParagraphWidget extends Widget {
 
 	public ParagraphWidget(int id, String type) {
 		super(id, type);
-	}
-
-	public String getParagraphStyle() {
-		return paragraphStyle;
-	}
-
-	public void setParagraphStyle(String paragraphStyle) {
-		this.paragraphStyle = paragraphStyle;
 	}
 
 	public String getParagraphText() {
