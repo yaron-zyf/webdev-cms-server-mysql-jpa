@@ -1,9 +1,6 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,9 +11,6 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "Users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-	name = "role",
-	discriminatorType = DiscriminatorType.STRING)
 public class User {
 	
 	@Id
@@ -28,7 +22,6 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phone;
-	@Column(name = "role", insertable = false, updatable = false)
 	private String role;
 	@OneToMany(mappedBy = "user")
 	private List<Course> courses;
@@ -36,9 +29,8 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String userName, String password, String firstName, String lastName, String email, 
+	public User(String userName, String password, String firstName, String lastName, String email, 
 			String phone, String role, List<Course> courses) {
-		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;

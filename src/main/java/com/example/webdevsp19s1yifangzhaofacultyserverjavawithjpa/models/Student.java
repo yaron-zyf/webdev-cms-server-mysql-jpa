@@ -2,11 +2,9 @@ package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity(name = "Students")
-@DiscriminatorValue("Student")
 public class Student extends User {
 	
 	private float gpa;
@@ -15,9 +13,9 @@ public class Student extends User {
 	public Student() {
 	}
 	
-	public Student(int id, String userName, String password, String firstName, String lastName, String email,
+	public Student(String userName, String password, String firstName, String lastName, String email,
 			String phone, String role, List<Course> courses) {
-		super(id, userName, password, firstName, lastName, email, phone, role, courses);
+		super(userName, password, firstName, lastName, email, phone, role, courses);
 	}
 	
 	public float getGpa() {
