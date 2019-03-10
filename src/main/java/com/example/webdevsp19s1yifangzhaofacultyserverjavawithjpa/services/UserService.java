@@ -33,10 +33,14 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	@GetMapping("/api/profile")
-	public User profile(HttpSession session) {
+	@GetMapping("/api/user/{id}/profile")
+	public User profile(@PathVariable int id, HttpSession session) {
 		User currentUser = (User) session.getAttribute("currentUser");
-		return currentUser;
+		if (id != currentUser.getId()) {
+			return null;
+		} else {
+			return userRepository.findById(id).orElse(null);
+		}
 	}
 	
 	@PostMapping("/api/login")
