@@ -49,6 +49,14 @@ public class Topic {
 		this.title = title;
 	}
 
+	public Lesson getLesson() {
+		return lesson;
+	}
+
+	public void setLesson(Lesson lesson) {
+		this.lesson = lesson;
+	}
+
 	public List<Widget> getWidgets() {
 		return widgets;
 	}

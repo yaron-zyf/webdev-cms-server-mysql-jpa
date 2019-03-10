@@ -47,6 +47,14 @@ public class Course {
 		this.title = title;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public List<Module> getModules() {
 		return modules;
 	}

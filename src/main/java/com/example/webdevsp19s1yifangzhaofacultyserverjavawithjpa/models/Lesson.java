@@ -48,6 +48,14 @@ public class Lesson {
 		this.title = title;
 	}
 
+	public Module getModule() {
+		return module;
+	}
+
+	public void setModule(Module module) {
+		this.module = module;
+	}
+
 	public List<Topic> getTopics() {
 		return topics;
 	}

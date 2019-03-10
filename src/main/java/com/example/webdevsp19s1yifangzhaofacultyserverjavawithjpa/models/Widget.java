@@ -51,5 +51,13 @@ public class Widget {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 	
 }
