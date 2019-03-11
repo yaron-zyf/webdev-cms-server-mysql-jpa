@@ -1,6 +1,7 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,10 @@ public class User {
 	private String email;
 	private String phone;
 	private String role;
-	@OneToMany(mappedBy = "user")
+	@OneToMany(
+		mappedBy = "user",
+		orphanRemoval = true,
+		cascade = CascadeType.ALL)
 	private List<Course> courses;
 	
 	public User() {

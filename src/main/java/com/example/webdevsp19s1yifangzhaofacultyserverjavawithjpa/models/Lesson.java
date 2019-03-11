@@ -1,7 +1,7 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models;
 
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +20,10 @@ public class Lesson {
 	@ManyToOne
 	@JsonIgnore
 	private Module module;
-	@OneToMany(mappedBy = "lesson")
+	@OneToMany(
+		mappedBy = "lesson",
+		orphanRemoval = true,
+		cascade = CascadeType.ALL)
 	private List<Topic> topics;
 	
 	public Lesson() {
