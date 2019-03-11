@@ -75,7 +75,7 @@ public class CourseService {
 			return "Course Not Found!";
 		} else {
 			courseRepository.deleteById(cid);
-			return "Successfully deleted! ";
+			return "Successfully deleted!";
 		}
 	}
 	
