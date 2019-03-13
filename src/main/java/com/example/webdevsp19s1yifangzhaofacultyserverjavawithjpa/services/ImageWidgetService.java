@@ -10,42 +10,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models.ParagraphWidget;
+import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models.ImageWidget;
 import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models.Topic;
 import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models.Widget;
-import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.repositories.ParagraphWidgetRepository;
+import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.repositories.ImageWidgetRepository;
 import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.repositories.WidgetRepository;
 
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true")
-public class ParagraphWidgetService {
+public class ImageWidgetService {
 	
 	@Autowired
 	TopicService topicService;
 	@Autowired
 	WidgetRepository widgetRepository;
 	@Autowired
-	ParagraphWidgetRepository paragraphWidgetRepository;
+	ImageWidgetRepository imageWidgetRepository;
 	
-	@PostMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/paragraph/widget")
-	public ParagraphWidget createParagraphWidget(
+	@PostMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/image/widget")
+	public ImageWidget createImageWidget(
 			@PathVariable int uid,
 			@PathVariable int cid,
 			@PathVariable int mid,
 			@PathVariable int lid,
 			@PathVariable int tid,
-			@RequestBody ParagraphWidget pw) {
+			@RequestBody ImageWidget iw) {
 		Topic currentTopic = topicService.findTopicById(uid, cid, mid, lid, tid);
 		if (currentTopic == null) {
 			return null;
 		} else {
-			pw.setTopic(currentTopic);
-			return paragraphWidgetRepository.save(pw);
+			iw.setTopic(currentTopic);
+			return imageWidgetRepository.save(iw);
 		}
 	}
 	
-	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/paragraph/widgets")
-	public List<Widget> findAllParagraphWidgets(
+	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/image/widgets")
+	public List<Widget> findAllImageWidgets(
 			@PathVariable int uid,
 			@PathVariable int cid,
 			@PathVariable int mid,
@@ -55,12 +55,12 @@ public class ParagraphWidgetService {
 		if (currentTopic == null) {
 			return null;
 		} else {
-			return widgetRepository.findAllWidgetsByType("PARAGRAPH", tid);
+			return widgetRepository.findAllWidgetsByType("IMAGE", tid);
 		}
 	}
 	
-	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/paragraph/widget/{wid}")
-	public ParagraphWidget findParagraphWidgetById(
+	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/image/widget/{wid}")
+	public ImageWidget findImageWidgetById(
 			@PathVariable int uid,
 			@PathVariable int cid,
 			@PathVariable int mid,
@@ -71,30 +71,30 @@ public class ParagraphWidgetService {
 		if (currentTopic == null) {
 			return null;
 		} else {
-			return paragraphWidgetRepository.findById(wid).orElse(null);
+			return imageWidgetRepository.findById(wid).orElse(null);
 		}
 	}
 	
-	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/paragraph/widget/{wid}")
-	public ParagraphWidget updateParagraphWidget(
+	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/image/widget/{wid}")
+	public ImageWidget updateImageWidget(
 			@PathVariable int uid,
 			@PathVariable int cid,
 			@PathVariable int mid,
 			@PathVariable int lid,
 			@PathVariable int tid,
 			@PathVariable int wid,
-			@RequestBody ParagraphWidget pw) {
+			@RequestBody ImageWidget iw) {
 		Topic currentTopic = topicService.findTopicById(uid, cid, mid, lid, tid);
-		if (currentTopic == null || !paragraphWidgetRepository.existsById(wid)) {
+		if (currentTopic == null || !imageWidgetRepository.existsById(wid)) {
 			return null;
 		} else {
-			pw.setTopic(currentTopic);
-			return paragraphWidgetRepository.save(pw);
+			iw.setTopic(currentTopic);
+			return imageWidgetRepository.save(iw);
 		}
 	}
-
-	@DeleteMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/paragraph/widget/{wid}")
-	public String deleteParagraphWidget(
+	
+	@DeleteMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/image/widget/{wid}")
+	public String deleteImageWidget(
 			@PathVariable int uid,
 			@PathVariable int cid,
 			@PathVariable int mid,
@@ -102,10 +102,10 @@ public class ParagraphWidgetService {
 			@PathVariable int tid,
 			@PathVariable int wid) {
 		Topic currentTopic = topicService.findTopicById(uid, cid, mid, lid, tid);
-		if (currentTopic == null || !paragraphWidgetRepository.existsById(wid)) {
-			return "ParagraphWidget Not Found!";
+		if (currentTopic == null || !imageWidgetRepository.existsById(wid)) {
+			return "ImageWidget Not Found!";
 		} else {
-			paragraphWidgetRepository.deleteById(wid);
+			imageWidgetRepository.deleteById(wid);
 			return "Successsfully deleted!";
 		}
 	}
