@@ -74,7 +74,8 @@ public class UserService {
 	@PutMapping("/api/user/{id}")
 	public User updateUser(@PathVariable int id, @RequestBody User user) {
 		if (userRepository.existsById(id)) {
-			return userRepository.save(user);
+			userRepository.updateUser(user.getPhone(), user.getEmail(), id);
+			return userRepository.findById(id).orElse(null);
 		} else {
 			return null;
 		}
