@@ -15,7 +15,7 @@ import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.models.Topic;
 import com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.repositories.TopicRepository;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "true")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class TopicService {
 
 	@Autowired
