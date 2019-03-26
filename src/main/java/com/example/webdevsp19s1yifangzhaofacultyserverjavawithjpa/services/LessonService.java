@@ -1,5 +1,6 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,6 +52,31 @@ public class LessonService {
 		}
 	}
 	
+	@GetMapping("/api/lessons")
+	public List<Lesson> findAllLessons() {
+		List<Module> modules = moduleService.findAllModules();
+		List<Lesson> lessons = new ArrayList<Lesson>();
+		if (!modules.isEmpty()) {
+			for (Module module : modules) {
+				List<Lesson> subLessons = module.getLessons();
+				if (!subLessons.isEmpty()) {
+					lessons.addAll(subLessons);
+				}
+			}
+		}
+		return lessons;
+	}
+	
+	@GetMapping("/api/module/{mid}/lessons")
+	public List<Lesson> findLessonsForModule(@PathVariable int mid) {
+		Module module = moduleService.findModuleById(mid);
+		if (module != null) {
+			return module.getLessons();
+		} else {
+			return null;
+		}
+	}
+	
 	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}")
 	public Lesson findLessonById(
 			@PathVariable int uid,
@@ -63,6 +89,19 @@ public class LessonService {
 		} else {
 			return lessonRepository.findById(lid).orElse(null);
 		}
+	}
+	
+	@GetMapping("/api/lesson/{lid}")
+	public Lesson findLessonById(@PathVariable int lid) {
+		List<Lesson> lessons = findAllLessons();
+		if (!lessons.isEmpty()) {
+			for (Lesson lesson : lessons) {
+				if (lesson.getId() == lid) {
+					return lesson;
+				}
+			}
+		}
+		return null;
 	}
 	
 	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}")

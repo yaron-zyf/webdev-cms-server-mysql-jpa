@@ -1,5 +1,6 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,6 +50,31 @@ public class ModuleService {
 		}
 	}
 	
+	@GetMapping("/api/modules")
+	public List<Module> findAllModules() {
+		List<Course> courses = courseService.findAllCourses();
+		List<Module> modules = new ArrayList<Module>();
+		if (!courses.isEmpty()) {
+			for (Course course : courses) {
+				List<Module> subModules = course.getModules();
+				if (!subModules.isEmpty()) {
+					modules.addAll(subModules);
+				}
+			}
+		}
+		return modules;
+	}
+	
+	@GetMapping("/api/course/{cid}/modules")
+	public List<Module> findModulesForCourse(@PathVariable int cid) {
+		Course course = courseService.findCourseById(cid);
+		if (course != null) {
+			return course.getModules();
+		} else {
+			return null;
+		}
+	}
+	
 	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}")
 	public Module findModuleById(
 			@PathVariable int uid,
@@ -60,6 +86,19 @@ public class ModuleService {
 		} else {
 			return moduleRepository.findById(mid).orElse(null);
 		}
+	}
+	
+	@GetMapping("/api/module/{mid}")
+	public Module findModuleById(@PathVariable int mid) {
+		List<Module> modules = findAllModules();
+		if (!modules.isEmpty()) {
+			for (Module module : modules) {
+				if (module.getId() == mid) {
+					return module;
+				}
+			}
+		}
+		return null;
 	}
 	
 	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}")

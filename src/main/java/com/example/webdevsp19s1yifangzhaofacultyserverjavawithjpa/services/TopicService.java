@@ -1,5 +1,6 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,6 +54,31 @@ public class TopicService {
 		}
 	}
 	
+	@GetMapping("/api/topics")
+	public List<Topic> findAllTopics() {
+		List<Lesson> lessons = lessonService.findAllLessons();
+		List<Topic> topics = new ArrayList<Topic>();
+		if (!lessons.isEmpty()) {
+			for (Lesson lesson : lessons) {
+				List<Topic> subTopics = lesson.getTopics();
+				if (!subTopics.isEmpty()) {
+					topics.addAll(subTopics);
+				}
+			}
+		}
+		return topics;
+	}
+	
+	@GetMapping("/api/lesson/{lid}/topics")
+	public List<Topic> findTopicsForLesson(@PathVariable int lid) {
+		Lesson lesson = lessonService.findLessonById(lid);
+		if (lesson != null) {
+			return lesson.getTopics();
+		} else {
+			return null;
+		}
+	}
+	
 	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}")
 	public Topic findTopicById(
 			@PathVariable int uid,
@@ -66,6 +92,19 @@ public class TopicService {
 		} else {
 			return topicRepository.findById(tid).orElse(null);
 		}
+	}
+	
+	@GetMapping("/api/topic/{tid}")
+	public Topic findTopicById(@PathVariable int tid) {
+		List<Topic> topics = findAllTopics();
+		if (!topics.isEmpty()) {
+			for (Topic topic : topics) {
+				if (topic.getId() == tid) {
+					return topic;
+				}
+			}
+		}
+		return null;
 	}
 	
 	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}")

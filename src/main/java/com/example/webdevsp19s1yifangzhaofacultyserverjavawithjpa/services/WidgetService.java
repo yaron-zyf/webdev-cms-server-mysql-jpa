@@ -1,5 +1,6 @@
 package com.example.webdevsp19s1yifangzhaofacultyserverjavawithjpa.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -75,6 +76,31 @@ public class WidgetService {
 		}
 	}
 	
+	@GetMapping("/api/widgets")
+	public List<Widget> findAllWidgets() {
+		List<Topic> topics = topicService.findAllTopics();
+		List<Widget> widgets = new ArrayList<Widget>();
+		if (!topics.isEmpty()) {
+			for (Topic topic : topics) {
+				List<Widget> subWidgets = topic.getWidgets();
+				if (!subWidgets.isEmpty()) {
+					widgets.addAll(subWidgets);
+				}
+			}
+		}
+		return widgets;
+	}
+	
+	@GetMapping("/api/topic/{tid}/widgets")
+	public List<Widget> findWidgetsForTopic(@PathVariable int tid) {
+		Topic topic = topicService.findTopicById(tid);
+		if (topic != null) {
+			return topic.getWidgets();
+		} else {
+			return null;
+		}
+	}
+	
 	@GetMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/widget/{wid}")
 	public Widget findWidgetById(
 			@PathVariable int uid,
@@ -89,6 +115,19 @@ public class WidgetService {
 		} else {
 			return widgetRepository.findById(wid).orElse(null);
 		}
+	}
+	
+	@GetMapping("/api/widget/{wid}")
+	public Widget findWidgetById(@PathVariable int wid) {
+		List<Widget> widgets = findAllWidgets();
+		if (!widgets.isEmpty()) {
+			for (Widget widget : widgets) {
+				if (widget.getId() == wid) {
+					return widget;
+				}
+			}
+		}
+		return null;
 	}
 	
 	@PutMapping("/api/user/{uid}/course/{cid}/module/{mid}/lesson/{lid}/topic/{tid}/widget/{wid}")
