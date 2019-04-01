@@ -119,8 +119,8 @@ public class TopicService {
 		if (currentLesson == null || !topicRepository.existsById(tid)) {
 			return null;
 		} else {
-			topic.setLesson(currentLesson);
-			return topicRepository.save(topic);
+			topicRepository.updateTopic(topic.getTitle(), tid);
+			return topicRepository.findById(tid).orElse(null);
 		}
 	}
 	

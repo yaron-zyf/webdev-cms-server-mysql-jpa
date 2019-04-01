@@ -111,8 +111,8 @@ public class ModuleService {
 		if (currentCourse == null || !moduleRepository.existsById(mid)) {
 			return null;
 		} else {
-			module.setCourse(currentCourse);
-			return moduleRepository.save(module);
+			moduleRepository.updateModule(module.getTitle(), mid);
+			return moduleRepository.findById(mid).orElse(null);
 		}
 	}
 	

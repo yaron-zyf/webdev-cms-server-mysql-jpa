@@ -115,8 +115,8 @@ public class LessonService {
 		if (currentModule == null || !lessonRepository.existsById(lid)) {
 			return null;
 		} else {
-			lesson.setModule(currentModule);
-			return lessonRepository.save(lesson);
+			lessonRepository.updateLesson(lesson.getTitle(), lid);
+			return lessonRepository.findById(lid).orElse(null);
 		}
 	}
 	
