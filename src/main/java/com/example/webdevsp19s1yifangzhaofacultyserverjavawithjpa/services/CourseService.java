@@ -63,8 +63,8 @@ public class CourseService {
 		if (currentUser == null || !courseRepository.existsById(cid)) {
 			return null;
 		} else {
-			course.setUser(currentUser);
-			return courseRepository.save(course);
+			courseRepository.updateCourse(course.getTitle(), cid);
+			return courseRepository.findById(cid).orElse(null);
 		}
 	}
 	

@@ -12,7 +12,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE Users user SET user.phone = ?1, "
-			+ "user.email = ?2 WHERE user.id = ?3", 
+				 + "user.email = ?2 WHERE user.id = ?3", 
 		   nativeQuery = true)
 	public void updateUser(String phone, String email, int id);
 	
